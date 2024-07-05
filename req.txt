@@ -1,0 +1,6 @@
+pandas
+tensorflow
+openpyxl
+pillow
+matplotlib
+seaborn
