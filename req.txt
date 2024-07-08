@@ -4,3 +4,5 @@ openpyxl
 pillow
 matplotlib
 seaborn
+scikit-learn
+numpy
