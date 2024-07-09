@@ -1,3 +1,5 @@
 bps-env/
 Data/
+.idea/
+venv/
 Dataset.zip
