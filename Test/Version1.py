@@ -27,12 +27,12 @@ def download_file(file_id, output_file):
 for file in files_to_download:
     download_file(file['id'], file['name'])
 
-with zipfile.ZipFile('Dataset.zip', 'r') as zip_ref:
+with zipfile.ZipFile('../Dataset.zip', 'r') as zip_ref:
     zip_ref.extractall("Data/")
 
 # %%
-day_path = 'Data/Dataset/Daylight'
-night_path = 'Data/Dataset/NTL'
+day_path = '../Data/Dataset/Daylight'
+night_path = '../Data/Dataset/NTL'
 metadata = 'Data/idm_baru.csv'
 
 # %%
