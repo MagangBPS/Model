@@ -2,4 +2,5 @@ Data/
 .idea/
 venv/
 bps-env/
+__pycache__/
 Dataset.zip
