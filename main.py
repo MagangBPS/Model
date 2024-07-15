@@ -1,5 +1,6 @@
 import os
 from download_and_extract import download_and_extract_files
+from data_preprocessing import preprocess_metadata, match_images_with_metadata, normalize_paths
 from visualization import plot_class_distribution, show_sample_images
 from background_modification import process_images
 from utils import calculate_balanced_accuracy, load_and_preprocess_data
@@ -20,8 +21,20 @@ setup_tensorflow()
 # Paths
 day_path = 'Data/Dataset/Daylight'
 night_path = 'Data/Dataset/NTL'
+metadata_path = 'Data/idm_baru.csv'
 modified_day_path = 'Data/Modified_Dataset/Daylight'
 modified_night_path = 'Data/Modified_Dataset/NTL'
+
+# Preprocess metadata
+idm_df_filtered = preprocess_metadata(metadata_path)
+
+# Match images with metadata
+day_files = [os.path.join(root, file) for root, _, files in os.walk(day_path) for file in files]
+night_files = [os.path.join(root, file) for root, _, files in os.walk(night_path) for file in files]
+day_images_metadata = match_images_with_metadata(day_files, idm_df_filtered)
+night_images_metadata = match_images_with_metadata(night_files, idm_df_filtered, is_night=True)
+day_images_metadata = normalize_paths(day_images_metadata, 'filepath') # path \
+night_images_metadata = normalize_paths(night_images_metadata, 'filepath')
 
 # # Visualize data
 # plot_class_distribution(idm_df_filtered)
@@ -55,8 +68,8 @@ callbacks = [
 history = model.fit(
     [x_day_train, x_night_train],
     y_train,
-    epochs=1,
-    batch_size=8,
+    epochs=5,
+    batch_size=4,
     validation_data=([x_day_val, x_night_val], y_val),
     callbacks=callbacks,
     verbose=1
@@ -67,7 +80,7 @@ model.save('status_desa_cnn.h5')
 print("Model saved successfully.")
 
 # Calculate and print balanced accuracy
-balanced_acc = calculate_balanced_accuracy(model, [x_day_val, x_night_val], y_val)
+balanced_acc = calculate_balanced_accuracy(model, [x_day_val, x_night_val], y_val, batch_size=1)
 print(f'Balanced Accuracy: {balanced_acc * 100:.2f}%')
 
 clear_session()

@@ -40,12 +40,12 @@ def load_and_preprocess_data(day_folder, night_folder, target_size=(224, 224)):
 
     return x_day, x_night, y
 
-def calculate_balanced_accuracy(model, x_val, y_val):
+def calculate_balanced_accuracy(model, x_val, y_val, batch_size=1):
     y_true = []
     y_pred = []
 
     # Predict the validation set
-    preds = model.predict(x_val)
+    preds = model.predict(x_val, batch_size=batch_size)
     y_pred = np.round(preds).flatten()
     y_true = y_val
 
