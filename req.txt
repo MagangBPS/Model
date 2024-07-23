@@ -1,0 +1,10 @@
+pandas
+tensorflow
+openpyxl
+pillow
+matplotlib
+seaborn
+scikit-learn
+numpy
+gdown
+zipfile

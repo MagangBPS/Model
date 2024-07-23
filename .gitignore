@@ -2,3 +2,10 @@
 /data_process/
 /Dataset/
 /h5_models/
+Data/
+.idea/
+venv/
+bps-env/
+__pycache__/
+*.h5
+Dataset.zip
